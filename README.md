@@ -31,6 +31,7 @@ Every case study folder contains:
 - `solution.py` — the Python program
 - `test_cases.py` — test cases written to check the program
 - `output.txt` — output of the program
+- `flowchart.png` — flowchart diagram image for the program
 - `output_screenshot.png` — screenshot of the output
 - `demo_input.txt` — sample input (only for case 10, the menu-based program)
 

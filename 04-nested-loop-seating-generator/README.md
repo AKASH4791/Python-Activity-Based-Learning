@@ -46,6 +46,10 @@ The hall has 4 rows and 6 columns (24 seats). Some seats are reserved and must b
 
 ## 5. Flowchart
 
+![Flowchart](flowchart.png)
+
+*Figure: Flowchart for this case study (Start/End = oval, Process = rectangle, Decision = diamond, Input/Output = parallelogram). Text version below:*
+
 ```
                     +---------+
                     |  START  |

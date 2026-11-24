@@ -47,6 +47,10 @@ Each product is a tuple `(code, name, price, stock, reorder level)`. Invalid mea
 
 ## 5. Flowchart
 
+![Flowchart](flowchart.png)
+
+*Figure: Flowchart for this case study (Start/End = oval, Process = rectangle, Decision = diamond, Input/Output = parallelogram). Text version below:*
+
 ```
                     +---------+
                     |  START  |

@@ -57,6 +57,10 @@ Each applicant record is given as a tuple `(roll, name, marks list, attendance %
 
 ## 5. Flowchart
 
+![Flowchart](flowchart.png)
+
+*Figure: Flowchart for this case study (Start/End = oval, Process = rectangle, Decision = diamond, Input/Output = parallelogram). Text version below:*
+
 ```
                     +---------+
                     |  START  |
