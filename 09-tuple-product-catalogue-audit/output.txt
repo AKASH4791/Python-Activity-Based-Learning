@@ -1,0 +1,36 @@
+==============================================================================
+  PRODUCT CATALOGUE AUDIT
+==============================================================================
+Code     Name                  Price    Stock  Reorder
+------------------------------------------------------------------------------
+P101     Notebook                 60      120       20
+P102     Pen                      15        8       50
+P103     Pencil Box              120       45       15
+P104     Eraser                   10      200       30
+P105     Scale                    35        0       10
+P106     Marker                   45       25       25
+         Unknown Item             50       10        5  [INVALID]
+P108     Bad Price Item          -20       10        5  [INVALID]
+------------------------------------------------------------------------------
+
+INVALID RECORDS:
+   (Unknown Item):
+     - empty product code
+  P108 (Bad Price Item):
+     - price must be positive, got -20
+
+INVENTORY VALUE (valid items only):
+  P101     Notebook           Rs 60 x 120 = Rs 7200
+  P102     Pen                Rs 15 x 8 = Rs 120
+  P103     Pencil Box         Rs 120 x 45 = Rs 5400
+  P104     Eraser             Rs 10 x 200 = Rs 2000
+  P105     Scale              Rs 35 x 0 = Rs 0
+  P106     Marker             Rs 45 x 25 = Rs 1125
+  Total inventory value: Rs 15845
+
+REPLENISHMENT NEEDED (stock <= reorder level):
+  P102     Pen                stock 8 <= reorder 50 -> order more
+  P105     Scale              stock 0 <= reorder 10 -> order more
+  P106     Marker             stock 25 <= reorder 25 -> order more
+
+Summary: 6 valid, 2 invalid, 3 need replenishment.

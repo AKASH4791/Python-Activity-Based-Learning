@@ -1,0 +1,26 @@
+======================================================================
+  ATM TRANSACTION SEQUENCE SIMULATION
+======================================================================
+Opening balance : Rs 10000
+Per-transaction withdrawal limit : Rs 20000
+----------------------------------------------------------------------
+#    Type           Amount Status        Balance
+----------------------------------------------------------------------
+1    deposit          5000 OK              15000
+2    withdraw         3000 OK              12000
+3    withdraw        25000 REJECTED        12000
+      -> exceeds per-transaction limit Rs 20000
+4    withdraw        20000 REJECTED        12000
+      -> insufficient balance
+5    deposit         -1000 REJECTED        12000
+      -> amount must be positive
+6    withdraw         1500 OK              10500
+7    deposit          2000 OK              12500
+8    withdraw          500 OK              12000
+----------------------------------------------------------------------
+SUMMARY:
+  Successful transactions : 5
+  Rejected transactions   : 3
+  Total deposited         : Rs 7000
+  Total withdrawn         : Rs 5000
+  Closing balance         : Rs 12000

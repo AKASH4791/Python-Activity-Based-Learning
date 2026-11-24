@@ -1,0 +1,25 @@
+======================================================================
+  TEXT COMPRESSION USING CHARACTER RUNS (RLE)
+======================================================================
+Original       Encoded        Orig len  Enc len  Useful?
+----------------------------------------------------------------------
+aaabbbcc       a3b3c2                8        6  yes
+abc            abc                   3        3  no
+aaaa           a4                    4        2  yes
+mississippi    mis2is2ip2i          11       11  no
+aabbaabb       a2b2a2b2              8        8  no
+hello          hel2o                 5        5  no
+aaabaaa        a3ba3                 7        5  yes
+----------------------------------------------------------------------
+
+Decode check (encoded -> original):
+  aaabbbcc       -> a3b3c2         -> aaabbbcc       [OK]
+  abc            -> abc            -> abc            [OK]
+  aaaa           -> a4             -> aaaa           [OK]
+  mississippi    -> mis2is2ip2i    -> mississippi    [OK]
+  aabbaabb       -> a2b2a2b2       -> aabbaabb       [OK]
+  hello          -> hel2o          -> hello          [OK]
+  aaabaaa        -> a3ba3          -> aaabaaa        [OK]
+
+Note: encoding is useful only when there are repeated characters.
+For strings like 'abc' the encoded form is longer, so we keep original.

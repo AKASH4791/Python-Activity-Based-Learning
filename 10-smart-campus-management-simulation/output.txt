@@ -1,0 +1,148 @@
+============================================================
+  SMART CAMPUS MANAGEMENT SYSTEM
+  Name: Akash, Roll No: 26000499
+============================================================
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Student name: Result: added
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Student name: Result: added
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Present days: Total days: Result: recorded
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Present days: Total days: Result: recorded
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Marks subject 1: Marks subject 2: Marks subject 3: Result: entered
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Marks subject 1: Marks subject 2: Marks subject 3: Result: entered
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Event name: Result: registered
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Roll number: Event name: Result: registered
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Resource name (Projector/Laptop/Camera): Quantity: Result: allocated
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Resource name (Projector/Laptop/Camera): Quantity: Result: allocated
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): 
+===== SUMMARY REPORT =====
+Total students: 2
+
+Students:
+  S101 - Ananya
+  S102 - Bharat
+
+Attendance:
+  S101 : 40/50 = 80.0%
+  S102 : 35/50 = 70.0%
+
+Marks (average):
+  S101 : [80, 75, 90] avg 81.67
+  S102 : [60, 55, 70] avg 61.67
+
+Event registrations (fee Rs 200 each):
+  S101 -> Hackathon
+  S102 -> Hackathon
+  Total fee collected: Rs 400
+
+Resources:
+  Projector : allocated 2 of 5
+  Laptop : allocated 3 of 10
+  Camera : allocated 0 of 3
+
+--- MENU ---
+1. Add student
+2. Record attendance
+3. Enter marks
+4. Register for event
+5. Allocate resource
+6. Summary report
+7. Exit
+Enter choice (1-7): Exiting. Thank you!
