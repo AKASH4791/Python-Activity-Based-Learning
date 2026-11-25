@@ -133,17 +133,23 @@ def main():
             print("Result:", msg)
         elif choice == "2":
             roll = input("Roll number: ").strip()
-            present = int(input("Present days: "))
-            total = int(input("Total days: "))
-            ok, msg = record_attendance(roll, present, total)
-            print("Result:", msg)
+            present_text = input("Present days: ").strip()
+            total_text = input("Total days: ").strip()
+            if not present_text.isdigit() or not total_text.isdigit():
+                print("Result: attendance values must be whole numbers")
+            else:
+                ok, msg = record_attendance(roll, int(present_text), int(total_text))
+                print("Result:", msg)
         elif choice == "3":
             roll = input("Roll number: ").strip()
-            m1 = int(input("Marks subject 1: "))
-            m2 = int(input("Marks subject 2: "))
-            m3 = int(input("Marks subject 3: "))
-            ok, msg = enter_marks(roll, m1, m2, m3)
-            print("Result:", msg)
+            m1_text = input("Marks subject 1: ").strip()
+            m2_text = input("Marks subject 2: ").strip()
+            m3_text = input("Marks subject 3: ").strip()
+            if not m1_text.isdigit() or not m2_text.isdigit() or not m3_text.isdigit():
+                print("Result: marks must be whole numbers")
+            else:
+                ok, msg = enter_marks(roll, int(m1_text), int(m2_text), int(m3_text))
+                print("Result:", msg)
         elif choice == "4":
             roll = input("Roll number: ").strip()
             event = input("Event name: ").strip()
@@ -151,9 +157,12 @@ def main():
             print("Result:", msg)
         elif choice == "5":
             name = input("Resource name (Projector/Laptop/Camera): ").strip()
-            qty = int(input("Quantity: "))
-            ok, msg = allocate_resource(name, qty)
-            print("Result:", msg)
+            qty_text = input("Quantity: ").strip()
+            if not qty_text.isdigit():
+                print("Result: quantity must be a whole number")
+            else:
+                ok, msg = allocate_resource(name, int(qty_text))
+                print("Result:", msg)
         elif choice == "6":
             summary()
         elif choice == "7":

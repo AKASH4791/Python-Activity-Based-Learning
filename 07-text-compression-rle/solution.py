@@ -78,7 +78,7 @@ def main():
         print("  %-14s -> %-14s -> %-14s [%s]" % (s, enc, dec, ok))
 
     print("\nNote: encoding is useful only when there are repeated characters.")
-    print("For strings like 'abc' the encoded form is longer, so we keep original.")
+    print("For strings like 'abc' there are no runs, so the encoded form is the same.")
 
 
 if __name__ == "__main__":

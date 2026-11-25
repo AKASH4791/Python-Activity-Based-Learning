@@ -97,7 +97,7 @@ def main():
                 low = MARKS[r][c]
                 lo_r = r
                 lo_c = c
-    print("\nEXTRAMES:")
+    print("\nEXTREMES:")
     print("  Highest: %d (%s in %s)" % (high, STUDENTS[hi_r], SUBJECTS[hi_c]))
     print("  Lowest : %d (%s in %s)" % (low, STUDENTS[lo_r], SUBJECTS[lo_c]))
     if len(weak) == 0:

@@ -24,8 +24,6 @@ def hollow_diamond(n):
         line = " " * spaces
         if i == 0:
             line = line + "*"
-        elif i == n - 1:
-            line = line + "*" * stars
         else:
             line = line + "*" + " " * (stars - 2) + "*"
         lines.append(line)
@@ -75,7 +73,7 @@ def main():
         print("\nNumeric pyramid (size %d):" % n)
         # centre the pyramid roughly
         for line in number_pyramid(n):
-            print(" " * (n - len(line) // 2 - 1) + line)
+            print(" " * ((n * 2 - 1 - len(line)) // 2) + line)
 
     print("-" * 50)
     print("Validation demo:")

@@ -1,10 +1,9 @@
-# Case Study 06 — Password Policy Validation Engine
+# Password Policy Validation Engine
 
-**Name:** Akash  
-**Roll No:** 26000499  
-**Subject:** Python Programming — Activity-Based Learning
+Name: Akash  
+Roll No: 26000499
 
-## 1. Problem Statement
+## Problem statement
 
 Evaluate sample password strings against minimum length, character-category, repetition, and prohibited-substring rules, and explain each failed condition.
 
@@ -14,21 +13,21 @@ Policy:
 - Must not contain prohibited words: password, 123456, admin, qwerty (case-insensitive).
 - Must not have 3 or more same characters in a row.
 
-## 2. Objectives
+## Objectives
 
 - Check each rule using loops and conditionals.
 - Use string methods like lower() and `in` for substring checks.
 - Collect all failed reasons in a list instead of stopping at first failure.
 - Print PASS/FAIL for each sample with explanations.
 
-## 3. Assumptions
+## Assumptions
 
 - Special characters are taken from `!@#$%^&*()-_=+[]{};:,.<>?`.
 - Prohibited word check is case-insensitive (password is checked as lowercase).
 - Repetition means 3+ identical characters consecutively, e.g. "aaa".
 - 7 sample passwords are used for demonstration.
 
-## 4. Algorithm
+## Algorithm
 
 ```
 1. START
@@ -47,52 +46,11 @@ Policy:
 4. END
 ```
 
-## 5. Flowchart
+## Flowchart
 
 ![Flowchart](flowchart.png)
 
-*Figure: Flowchart for this case study (Start/End = oval, Process = rectangle, Decision = diamond, Input/Output = parallelogram). Text version below:*
-
-```
-                    +---------+
-                    |  START  |
-                    +----┬----+
-                         v
-              +----------------------+
-              | FOR each password    |
-              +----------+-----------+
-                         v
-              +----------------------+
-              | check length >= 8 ?  |--NO--> add error
-              +----------+-----------+
-                         v
-              +----------------------+
-              | check upper/lower/   |
-              | digit/special        |--NO--> add error
-              +----------+-----------+
-                         v
-              +----------------------+
-              | prohibited word ?    |--YES-> add error
-              +----------+-----------+
-                         v
-              +----------------------+
-              | 3-in-a-row repeat ?  |--YES-> add error
-              +----------+-----------+
-                         v
-              +----------------------+
-              | errors empty ?       |--YES-> PASS
-              +----------+-----------+--NO--> FAIL + reasons
-                         v
-              +----------------------+
-              | print summary        |
-              +----------+-----------+
-                         v
-                  +---------+
-                  |   END   |
-                  +---------+
-```
-
-## 6. Pseudocode
+## Pseudocode
 
 ```
 BEGIN PASSWORD_VALIDATION
@@ -130,15 +88,50 @@ BEGIN PASSWORD_VALIDATION
 END
 ```
 
-## 7. Python Source Code
-
-Full program: [`solution.py`](./solution.py)
+## Python source code
 
 ```python
+"""
+Case Study 06: Password Policy Validation Engine
+Name: Akash, Roll No: 26000499
+Syllabus used: strings, string methods, loops, if-else, operators
+"""
+
+MIN_LENGTH = 8
+PROHIBITED = ["password", "123456", "admin", "qwerty"]
+SPECIALS = "!@#$%^&*()-_=+[]{};:,.<>?"
+
+SAMPLES = [
+    "welcome",
+    "Passw0rd",
+    "Strong#Pass1",
+    "aaabbbCCC123!",
+    "admin@12345",
+    "MyCampus#2026",
+    "AAAAAAAAaaaa1111!",
+]
+
+
+def has_repeat_run(pw):
+    """True if same character repeats 3 or more times in a row."""
+    run = 1
+    for i in range(1, len(pw)):
+        if pw[i] == pw[i - 1]:
+            run = run + 1
+            if run >= 3:
+                return True
+        else:
+            run = 1
+    return False
+
+
 def validate(pw):
+    """Return list of problems. Empty list means password is valid."""
     errors = []
+
     if len(pw) < MIN_LENGTH:
         errors.append("length %d is below minimum %d" % (len(pw), MIN_LENGTH))
+
     has_upper = False
     has_lower = False
     has_digit = False
@@ -152,45 +145,117 @@ def validate(pw):
             has_digit = True
         elif ch in SPECIALS:
             has_special = True
-    # ... prohibited and repetition checks ...
+
+    if not has_upper:
+        errors.append("missing an uppercase letter (A-Z)")
+    if not has_lower:
+        errors.append("missing a lowercase letter (a-z)")
+    if not has_digit:
+        errors.append("missing a digit (0-9)")
+    if not has_special:
+        errors.append("missing a special character like ! @ # $")
+
+    lower = pw.lower()
+    for word in PROHIBITED:
+        if word in lower:
+            errors.append("contains prohibited word '%s'" % word)
+
+    if has_repeat_run(pw):
+        errors.append("has 3 or more same characters in a row")
+
     return errors
+
+
+def main():
+    print("=" * 70)
+    print("  PASSWORD POLICY VALIDATION ENGINE")
+    print("=" * 70)
+    print("Policy: length >= %d, need upper + lower + digit + special," % MIN_LENGTH)
+    print("no prohibited words %s, no 3-in-a-row repeats." % PROHIBITED)
+    print("-" * 70)
+
+    passed = 0
+    for pw in SAMPLES:
+        errors = validate(pw)
+        if len(errors) == 0:
+            passed = passed + 1
+            print("  [ PASS ] %-20s -> accepted" % pw)
+        else:
+            print("  [ FAIL ] %-20s -> %d problem(s)" % (pw, len(errors)))
+            for e in errors:
+                print("            * %s" % e)
+
+    print("-" * 70)
+    print("Result: %d of %d sample passwords satisfy the policy." % (passed, len(SAMPLES)))
+
+
+if __name__ == "__main__":
+    main()
 ```
 
-Run with: `python3 solution.py`
+## Test cases
 
-## 8. Test Cases
+```python
+"""Test cases for Case Study 06 - Password Policy Validation Engine."""
+import importlib.util
+import os
 
-Test file: [`test_cases.py`](./test_cases.py) — 9 tests, all passing.
+spec = importlib.util.spec_from_file_location("sol", os.path.join(os.path.dirname(__file__), "solution.py"))
+sol = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(sol)
 
-| ID | Input | Expected | Result |
-|----|-------|----------|--------|
-| TC-01 | "Strong#Pass1" | valid | [] — PASS |
-| TC-02 | "MyCampus#2026" | valid | [] — PASS |
-| TC-03 | "welcome" | fails length | errors > 0 — PASS |
-| TC-04 | "Passw0rd" | fails (prohibited/no special) | errors > 0 — PASS |
-| TC-05 | "aaabbbCCC123!" | fails repetition | "3 or more" found — PASS |
-| TC-06 | "admin@12345" | fails prohibited | "prohibited" found — PASS |
-| TC-07 | "AAAAAAAAaaaa1111!" | fails repetition | "3 or more" found — PASS |
-| TC-08 | has_repeat_run("xxaaayy") | True | True — PASS |
-| TC-09 | has_repeat_run("abc123") | False | False — PASS |
+passed = 0
 
-## 9. Output
+def check(label, condition):
+    global passed
+    assert condition, "FAILED: " + label
+    passed += 1
+    print("  PASS:", label)
 
-![Output screenshot](output_screenshot.png)
+check("Strong#Pass1 is valid", sol.validate("Strong#Pass1") == [])
+check("MyCampus#2026 is valid", sol.validate("MyCampus#2026") == [])
+check("welcome fails length", len(sol.validate("welcome")) > 0)
+check("Passw0rd fails (prohibited + no special)", len(sol.validate("Passw0rd")) > 0)
+check("aaabbbCCC123! fails repeat run", any("3 or more" in e for e in sol.validate("aaabbbCCC123!")))
+check("admin@12345 fails prohibited", any("prohibited" in e for e in sol.validate("admin@12345")))
+check("AAAAAAAAaaaa1111! fails repeat", any("3 or more" in e for e in sol.validate("AAAAAAAAaaaa1111!")))
+check("has_repeat_run detects aaa", sol.has_repeat_run("xxaaayy") == True)
+check("has_repeat_run ok for abc", sol.has_repeat_run("abc123") == False)
 
-Full output: [`output.txt`](./output.txt)
+print("\nALL %d TESTS PASSED (Case Study 06)" % passed)
+```
+
+## Output screenshot
 
 ```
+======================================================================
+  PASSWORD POLICY VALIDATION ENGINE
+======================================================================
+Policy: length >= 8, need upper + lower + digit + special,
+no prohibited words ['password', '123456', 'admin', 'qwerty'], no 3-in-a-row repeats.
+----------------------------------------------------------------------
   [ FAIL ] welcome              -> 4 problem(s)
             * length 7 is below minimum 8
             * missing an uppercase letter (A-Z)
             * missing a digit (0-9)
             * missing a special character like ! @ # $
+  [ FAIL ] Passw0rd             -> 1 problem(s)
+            * missing a special character like ! @ # $
   [ PASS ] Strong#Pass1         -> accepted
+  [ FAIL ] aaabbbCCC123!        -> 1 problem(s)
+            * has 3 or more same characters in a row
+  [ FAIL ] admin@12345          -> 2 problem(s)
+            * missing an uppercase letter (A-Z)
+            * contains prohibited word 'admin'
   [ PASS ] MyCampus#2026        -> accepted
+  [ FAIL ] AAAAAAAAaaaa1111!    -> 1 problem(s)
+            * has 3 or more same characters in a row
+----------------------------------------------------------------------
 Result: 2 of 7 sample passwords satisfy the policy.
 ```
 
-## 10. Conclusion
+![Output screenshot](output_screenshot.png)
+
+## Conclusion
 
 The validator correctly checks all five rules and explains every failure, which makes it useful for teaching users to create strong passwords. Out of 7 samples, only 2 passed. The repetition check and prohibited-word check both worked as expected. All 9 test cases passed.

@@ -1,10 +1,9 @@
-# Case Study 02 — Progressive Electricity Billing
+# Progressive Electricity Billing
 
-**Name:** Akash  
-**Roll No:** 26000499  
-**Subject:** Python Programming — Activity-Based Learning
+Name: Akash  
+Roll No: 26000499
 
-## 1. Problem Statement
+## Problem statement
 
 Calculate household electricity bills using multiple consumption slabs, fixed charges, surcharges (cess), and rebates, then compare bills across several months and identify unusual increases.
 
@@ -16,7 +15,7 @@ Slab rates used in this program:
 
 Fixed charge is Rs 50 per month. A 2% education cess is added on the energy charge. If consumption decreases compared to the previous month, a 5% rebate is given on the energy charge. A month-on-month increase above 30% is flagged as unusual.
 
-## 2. Objectives
+## Objectives
 
 - Calculate slab-wise energy charge using loops and tuples.
 - Apply fixed charge, cess and rebate using operators and conditionals.
@@ -24,7 +23,7 @@ Fixed charge is Rs 50 per month. A 2% education cess is added on the energy char
 - Store monthly data in lists of tuples and use tuple unpacking.
 - Print a formatted bill statement.
 
-## 3. Assumptions
+## Assumptions
 
 - Consumption is measured in units (kWh) and is always a whole number.
 - First month has no previous month, so no rebate is applied.
@@ -32,7 +31,7 @@ Fixed charge is Rs 50 per month. A 2% education cess is added on the energy char
 - Unusual increase means more than 30% rise in units compared to previous month.
 - All consumption values are sample data.
 
-## 4. Algorithm
+## Algorithm
 
 ```
 1. START
@@ -58,57 +57,11 @@ Fixed charge is Rs 50 per month. A 2% education cess is added on the energy char
 8. END
 ```
 
-## 5. Flowchart
+## Flowchart
 
 ![Flowchart](flowchart.png)
 
-*Figure: Flowchart for this case study (Start/End = oval, Process = rectangle, Decision = diamond, Input/Output = parallelogram). Text version below:*
-
-```
-                    +---------+
-                    |  START  |
-                    +----┬----+
-                         v
-              +----------------------+
-              | read slabs, months   |
-              +----------+-----------+
-                         v
-              +----------------------+
-              | prev = None          |
-              +----------+-----------+
-                         v
-          +-------------------------+<-----------+
-          | FOR each month, units|            |
-          +-----------+-------------+            |
-                      v                          |
-          +----------------------+               |
-          | calculate slab charge|               |
-          | cess, rebate, total  |               |
-          +-----------+----------+               |
-                      v                          |
-          +----------------------+               |
-          | store bill, prev=units|--------------+
-          +-----------+----------+
-                      v
-          +----------------------+
-          | print bill table     |
-          +----------+-----------+
-                     v
-          +----------------------+
-          | compare month to     |
-          | month, flag >30%     |
-          +----------+-----------+
-                     v
-          +----------------------+
-          | highest / lowest bill|
-          +----------+-----------+
-                     v
-                  +---------+
-                  |   END   |
-                  +---------+
-```
-
-## 6. Pseudocode
+## Pseudocode
 
 ```
 BEGIN ELECTRICITY_BILLING
@@ -144,14 +97,34 @@ BEGIN ELECTRICITY_BILLING
 END
 ```
 
-## 7. Python Source Code
-
-Full program: [`solution.py`](./solution.py)
-
-Key functions:
+## Python source code
 
 ```python
+"""
+Case Study 02: Progressive Electricity Billing
+Name: Akash, Roll No: 26000499
+Syllabus used: variables, operators, if-else, loops, lists, tuples, unpacking
+"""
+
+# slabs as tuples: (slab upper limit, rate per unit)
+SLABS = [(100, 5.0), (300, 7.0), (500, 9.0), (1000000, 12.0)]
+FIXED_CHARGE = 50.0
+CESS_RATE = 0.02
+REBATE_RATE = 0.05
+UNUSUAL_LIMIT = 0.30
+
+# (month, units consumed)
+MONTHS = [
+    ("Jun", 150),
+    ("Jul", 220),
+    ("Aug", 340),
+    ("Sep", 280),
+    ("Oct", 260),
+]
+
+
 def slab_charge(units):
+    """Calculate energy charge slab by slab."""
     remaining = units
     lower = 0
     charge = 0.0
@@ -166,7 +139,9 @@ def slab_charge(units):
         lower = limit
     return charge
 
+
 def compute_bill(units, prev_units):
+    """Returns (energy, cess, rebate, total) for one month."""
     energy = slab_charge(units)
     cess = energy * CESS_RATE
     rebate = 0.0
@@ -174,44 +149,127 @@ def compute_bill(units, prev_units):
         rebate = energy * REBATE_RATE
     total = energy + FIXED_CHARGE + cess - rebate
     return round(energy, 2), round(cess, 2), round(rebate, 2), round(total, 2)
+
+
+def main():
+    bills = []
+    prev = None
+    for month, units in MONTHS:
+        energy, cess, rebate, total = compute_bill(units, prev)
+        bills.append((month, units, energy, cess, rebate, total))
+        prev = units
+
+    print("=" * 82)
+    print("  PROGRESSIVE ELECTRICITY BILL STATEMENT")
+    print("=" * 82)
+    print("%-6s %7s %9s %7s %7s %8s %10s" % ("Month", "Units", "Energy", "Fixed", "Cess", "Rebate", "Total(Rs)"))
+    print("-" * 82)
+    for month, units, energy, cess, rebate, total in bills:
+        print("%-6s %7d %9.2f %7.2f %7.2f %8.2f %10.2f" % (month, units, energy, FIXED_CHARGE, cess, rebate, total))
+    print("-" * 82)
+
+    print("\nMONTH-ON-MONTH COMPARISON:")
+    print("-" * 82)
+    for i in range(1, len(bills)):
+        m0, u0 = bills[i - 1][0], bills[i - 1][1]
+        m1, u1 = bills[i][0], bills[i][1]
+        change = (u1 - u0) / u0
+        pct = change * 100
+        flag = ""
+        if change > UNUSUAL_LIMIT:
+            flag = "  << UNUSUAL INCREASE (>30%)"
+        elif change < 0:
+            flag = "  (decrease, rebate applied)"
+        print("  %s -> %s : %+6.1f%%%s" % (m0, m1, pct, flag))
+
+    # highest and lowest bill
+    hi_month = bills[0][0]
+    hi_total = bills[0][5]
+    lo_month = bills[0][0]
+    lo_total = bills[0][5]
+    for b in bills:
+        if b[5] > hi_total:
+            hi_total = b[5]
+            hi_month = b[0]
+        if b[5] < lo_total:
+            lo_total = b[5]
+            lo_month = b[0]
+    print("\nHIGHEST BILL : %s (Rs %.2f)" % (hi_month, hi_total))
+    print("LOWEST  BILL : %s (Rs %.2f)" % (lo_month, lo_total))
+
+
+if __name__ == "__main__":
+    main()
 ```
 
-Run with: `python3 solution.py`
+## Test cases
 
-## 8. Test Cases
+```python
+"""Test cases for Case Study 02 - Progressive Electricity Billing."""
+import importlib.util
+import os
 
-Test file: [`test_cases.py`](./test_cases.py) — 8 tests, all passing.
+spec = importlib.util.spec_from_file_location("sol", os.path.join(os.path.dirname(__file__), "solution.py"))
+sol = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(sol)
 
-| ID | Input | Expected | Result |
-|----|-------|----------|--------|
-| TC-01 | 100 units | 500 | 500.0 — PASS |
-| TC-02 | 150 units | 500 + 50*7 = 850 | 850.0 — PASS |
-| TC-03 | 300 units | 500 + 1400 = 1900 | 1900.0 — PASS |
-| TC-04 | 340 units | 1900 + 40*9 = 2260 | 2260.0 — PASS |
-| TC-05 | First month 150 units | no rebate, total 917 | 917.0 — PASS |
-| TC-06 | 260 after 280 | 5% rebate applied | rebate = 81.0 — PASS |
-| TC-07 | 220 after 150 | no rebate | 0.0 — PASS |
-| TC-08 | 150 -> 220 | increase 46.7% > 30% | flagged unusual — PASS |
+passed = 0
 
-## 9. Output
+def check(label, condition):
+    global passed
+    assert condition, "FAILED: " + label
+    passed += 1
+    print("  PASS:", label)
 
-![Output screenshot](output_screenshot.png)
+check("100 units = 500", abs(sol.slab_charge(100) - 500.0) < 0.01)
+check("150 units = 500+350=850", abs(sol.slab_charge(150) - 850.0) < 0.01)
+check("300 units = 500+1400=1900", abs(sol.slab_charge(300) - 1900.0) < 0.01)
+check("340 units = 1900+360=2260", abs(sol.slab_charge(340) - 2260.0) < 0.01)
 
-Full output: [`output.txt`](./output.txt)
+e, c, r, t = sol.compute_bill(150, None)
+check("first month no rebate", r == 0.0 and abs(t - (850 + 50 + 17.0)) < 0.01)
+
+e, c, r, t = sol.compute_bill(260, 280)
+check("decrease gives 5% rebate", abs(r - round(e * 0.05, 2)) < 0.01)
+
+e, c, r, t = sol.compute_bill(220, 150)
+check("increase gives no rebate", r == 0.0)
+
+# unusual increase detection: 150 -> 220 is 46.7% > 30%
+change = (220 - 150) / 150
+check("Jun->Jul is unusual increase", change > 0.30)
+
+print("\nALL %d TESTS PASSED (Case Study 02)" % passed)
+```
+
+## Output screenshot
 
 ```
+==================================================================================
+  PROGRESSIVE ELECTRICITY BILL STATEMENT
+==================================================================================
 Month    Units    Energy   Fixed    Cess   Rebate  Total(Rs)
+----------------------------------------------------------------------------------
 Jun        150    850.00   50.00   17.00     0.00     917.00
 Jul        220   1340.00   50.00   26.80     0.00    1416.80
 Aug        340   2260.00   50.00   45.20     0.00    2355.20
 Sep        280   1760.00   50.00   35.20    88.00    1757.20
 Oct        260   1620.00   50.00   32.40    81.00    1621.40
+----------------------------------------------------------------------------------
 
 MONTH-ON-MONTH COMPARISON:
+----------------------------------------------------------------------------------
   Jun -> Jul :  +46.7%  << UNUSUAL INCREASE (>30%)
   Jul -> Aug :  +54.5%  << UNUSUAL INCREASE (>30%)
+  Aug -> Sep :  -17.6%  (decrease, rebate applied)
+  Sep -> Oct :   -7.1%  (decrease, rebate applied)
+
+HIGHEST BILL : Aug (Rs 2355.20)
+LOWEST  BILL : Jun (Rs 917.00)
 ```
 
-## 10. Conclusion
+![Output screenshot](output_screenshot.png)
+
+## Conclusion
 
 The progressive billing program works correctly for slab calculation, cess, rebate and unusual-increase detection. I used a loop over slab tuples which made the code easy to change if rates change. The sample data shows two unusual increases (Jun to Jul and Jul to Aug) and rebates in Sep and Oct when consumption fell. All 8 test cases passed.

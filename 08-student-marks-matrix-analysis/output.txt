@@ -25,7 +25,7 @@ COLUMN-WISE (per subject):
   English    average = 70.60
   CS         average = 77.00
 
-EXTRAMES:
+EXTREMES:
   Highest: 96 (Fatima in CS)
   Lowest : 48 (Bharat in Physics)
   Weak subjects (avg < 70): Physics

@@ -22,7 +22,7 @@ check("n=16 invalid", sol.valid_size(16) == False)
 d = sol.hollow_diamond(5)
 check("diamond has 9 lines for n=5", len(d) == 9)
 check("diamond top is single star", d[0].strip() == "*")
-check("diamond middle row is full", d[4].strip() == "*" * 9)
+check("diamond middle row is hollow", d[4].strip() == "*" + " " * 7 + "*")
 
 p = sol.number_pyramid(4)
 check("pyramid has 4 lines", len(p) == 4)
